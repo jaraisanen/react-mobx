@@ -1,14 +1,47 @@
 import React from "react"
 import { Provider } from "mobx-react"
-import stores from "./models/stores"
+import styled, { createGlobalStyle } from "styled-components"
+import { Stores } from "./stores"
+import Games from "./components/Games"
+import Header from "./components/header"
+import background from "./assets/images/background-xl.jpg"
 
-import Games from "./components/games"
+const GlobalStyle = createGlobalStyle`
+  html { 
+    font-size: 21px;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-image: url(${background});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    min-height: -webkit-fill-available;
+    line-height: 32px; 
+  }
+`
+const ContentContainer = styled.div`
+  margin-top: 5vh;
+`
+
+const appStores = new Stores()
 
 const App = () => {
+  console.log('gamesStore', appStores)
   return (
-    <Provider {...stores}>
-      <Games />
-    </Provider>
+    <>
+      <GlobalStyle />
+      <Header />
+      <Provider {...appStores}>
+        <ContentContainer>
+          <Games />
+        </ContentContainer>
+      </Provider>
+    </>
   )
 }
 
