@@ -3,8 +3,8 @@ import axios from "axios"
 
 export default class GamesStore {
   @observable fetchingGames = false
-  @observable fetchingGamesError = ""
-  @observable fetchingGamesSuccess = false
+  @observable actionError = ""
+  @observable actionSuccess = false
   @observable games = []
 
   @action fetchGames = async () => {
@@ -13,11 +13,24 @@ export default class GamesStore {
       this.fetchingGames = true
       const response = await axios.get(`http://localhost:3001/api/games`)
       this.games = response.data
-      this.fetchingGames = false
+      this.actionSuccess = false
     } catch (error) {
       this.fetchingGames = false
-      this.fetchingGamesError = error.error
+      this.actionError = error.error
       console.log(error)
+    }
+  }
+
+  @action deleteGame = async selectedGameId => {
+    console.log('delete called')
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/api/games/${selectedGameId}`
+      )
+      this.actionSuccess = response
+      this.fetchGames()
+    } catch (error) {
+      this.actionError = error
     }
   }
 }

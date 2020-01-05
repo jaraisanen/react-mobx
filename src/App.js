@@ -3,7 +3,7 @@ import { Provider } from "mobx-react"
 import styled, { createGlobalStyle } from "styled-components"
 import { Stores } from "./stores"
 import Games from "./components/Games"
-import Header from "./components/header"
+import Header from "./components/Header"
 import background from "./assets/images/background-xl.jpg"
 
 const GlobalStyle = createGlobalStyle`

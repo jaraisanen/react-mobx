@@ -25,22 +25,27 @@ const ToolIcons = styled.div`
 const H2 = styled.h2`
   font-size: 48px;
   font-weight: bold;
-  line-height: 32px;
-  text-align: center;
+  line-height: 24px;
   justify-content: center;
-  text-align: center;
 `
 
-const P = styled.p`
+const InfoSection = styled.span`
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 64px;
+`
+
+const P = styled.span`
   font-size: 32px;
   line-height: 32px;
   text-align: justify;
+  font-weight: normal;
 `
 
 const Icon = styled(FontAwesomeIcon)`
   cursor: pointer;
-  width: 64px !important;
-  height: 64px !important;
+  width: 48px !important;
+  height: 48px !important;
   margin: 24px;
 `
 
@@ -59,18 +64,22 @@ const Column = styled.div`
 `
 
 const Game = props => {
-  const { name, year, date } = props
+  const { id, name, year, date, deleteGame } = props
   return (
     <GameItemContainer>
       <Row>
         <Column>
           <H2>{name}</H2>
-          <P>Year {year}</P>
-          <P>Added {moment(date).format("DD/MM/YYYY")}</P>
+          <InfoSection>
+            Release year: <P>{year}</P>
+          </InfoSection>
+          <InfoSection>
+            Added to DB: <P>{moment(date).format("DD/MM/YYYY")}</P>
+          </InfoSection>
         </Column>
         <ToolIcons>
           <Icon icon={faEdit} />
-          <Icon icon={faTrashAlt} />
+          <Icon icon={faTrashAlt} onClick={() => deleteGame(id)} />
         </ToolIcons>
       </Row>
     </GameItemContainer>
