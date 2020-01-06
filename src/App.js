@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Provider } from "mobx-react"
 import styled, { createGlobalStyle } from "styled-components"
 import { Stores } from "./stores"
@@ -31,11 +31,12 @@ const ContentContainer = styled.div`
 const appStores = new Stores()
 
 const App = () => {
-  console.log('gamesStore', appStores)
+  const [navOpen, changeNavStatus] = useState(true)
+  console.log("gamesStore", appStores)
   return (
     <>
       <GlobalStyle />
-      <Header />
+      <Header navOpen={navOpen }changeNavStatus={changeNavStatus} />
       <Provider {...appStores}>
         <ContentContainer>
           <Games />
